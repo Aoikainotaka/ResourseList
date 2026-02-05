@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8" />
+  <title>学习资料库</title>
+
+  <link rel="icon" href="icons/icon.png">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+SC:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --bg2: #eef2f7;
+      --text: #1f2937;
+      --muted: #6b7280;
+
+      --card-bg: #ffffff;
+      --card-border: rgba(0, 0, 0, 0.06);
+      --shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+
+      --accent: #6b8cff;
+      --accent-hover: #5a7cf0;
+
+      --link: #2563eb;
+
+      --theme-ease: cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    html[data-theme="dark"] {
+      --bg: #0b1220;
+      --bg2: #0f1a2f;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+
+      --card-bg: rgba(255, 255, 255, 0.06);
+      --card-border: rgba(255, 255, 255, 0.10);
+      --shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+
+      --accent: #8aa2ff;
+      --accent-hover: #a7b8ff;
+
+      --link: #9bb4ff;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", "Noto Sans SC", system-ui, -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(1200px 400px at 10% -10%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 42%),
+        radial-gradient(1000px 500px at 90% 0%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 45%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      color: var(--text);
+      line-height: 1.75;
+      transition: background 2s var(--theme-ease), color 0.55s var(--theme-ease);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 48px 20px;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      /* 图标和文字的间距 */
+    }
+
+    .section-icon {
+      width: 50px;
+      /* 标题图标大小 */
+      height: 50px;
+      opacity: 0.9;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+
+    .subtitle {
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+    .section {
+      margin-bottom: 32px;
+    }
+
+    .section h2 {
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 12px 16px;
+      box-shadow: var(--shadow);
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .card a {
+      text-decoration: none;
+      color: var(--link);
+      gap: 15px;
+      font-weight: 400;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .card a:hover {
+      color: var(--accent);
+    }
+
+    /* 卡片网格：块儿状布局 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+      margin-top: 12px;
+    }
+
+    /* 描述文字更像卡片副标题 */
+    .card .desc {
+      margin-top: 8px;
+      line-height: 1.45;
+    }
+
+    .card img {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+    }
+
+    .desc {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .card-thumb {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      /* 👈 YouTube 的灵魂 */
+      overflow: hidden;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      background: color-mix(in srgb, var(--card-bg) 70%, var(--bg));
+      /* 图片没加载时不空白 */
+    }
+
+    .card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* 填满但不变形 */
+      display: block;
+    }
+
+
+    footer {
+      margin-top: 80px;
+      text-align: center;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      color: #7a869a;
+      opacity: 0.85;
+    }
+
+    footer::before {
+      content: "— ";
+      color: color-mix(in srgb, var(--muted) 60%, transparent);
+    }
+
+    footer::after {
+      content: " —";
+      color: color-mix(in srgb, var(--muted) 60%, transparent);
+    }
+
+    .card.tool a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card.tool img {
+      width: 18px;
+      height: 18px;
+      object-fit: contain;
+    }
+
+    .site-footer {
+      margin: 60px 0 30px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      opacity: 0.9;
+    }
+
+
+    .site-footer div {
+      margin: 4px 0;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 999;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      color: var(--text);
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .theme-toggle:hover {
+      transform: translateY(-1px);
+    }
+
+    .card,
+    .theme-toggle,
+    .site-footer {
+      transition:
+        background-color 0.75s var(--theme-ease),
+        color 0.55s var(--theme-ease),
+        border-color 0.75s var(--theme-ease),
+        box-shadow 0.75s var(--theme-ease);
+    }
+
+    .card {
+      will-change: background-color, color, border-color, box-shadow;
+    }
+
+
+    .section-title,
+    .desc {
+      transition: color 0.55s var(--theme-ease);
+    }
+
+    .card-thumb {
+      transition: background-color 0.75s var(--theme-ease);
+    }
+
+    html {
+      transition: background-color 0.95s var(--theme-ease);
+    }
+  </style>
+</head>
+
+<body>
+
+  <button id="themeToggle" class="theme-toggle" type="button" aria-label="切换主题">🌙 暗色</button>
+
+  <div class="container">
+    <h1 class="section-title">
+      <img src="icons/winex.png" class="section-icon">学习资料库
+    </h1>
+
+    <div class="section">
+      <h2>📖 资料</h2>
+      <div class="card-grid">
+        <div class="card">
+          <a href="http://edu.szmdata.com/" target="_blank">英语阅读资源（校内）</a>
+          <div class="desc">老师给的英语文章</div>
+        </div>
+
+        <div class="card">
+          <a href="https://github.com/hehonghui/awesome-english-ebooks" target="_blank">英语外刊杂志</a>
+          <div class="desc">
+            经济学人(含音频)、纽约客、卫报、连线、大西洋月刊等英语杂志免费下载,支持epub、mobi、pdf格式, 每周更新</div>
+        </div>
+
+        <div class="card">
+          <a href="https://z-library.sk/" target="_blank">Z-Library</a>
+          <div class="desc">电子书资源库</div>
+        </div>
+
+        <div class="card">
+          <a href="http://www3.ioc.u-tokyo.ac.jp/kandb.html" target="_blank">東京大學東洋文化研究所所藏漢籍目錄資料庫</a>
+          <div class="desc">"无用之用，是为大用"[doge]
+          </div>
+        </div>
+
+        <div class="card">
+          <a href="https://ebook.hep.com.cn/index.html#/index" target="_blank">高教书苑</a>
+          <div class="desc">各种高校教材电子资源</div>
+        </div>
+
+        <div class="card">
+          <a href="https://www.duxiu.com/" target="_blank">读秀学术搜索</a>
+          <div class="desc">"顾名思义"</div>
+        </div>
+
+        <div class="card">
+          <a href="https://cnzyy.org" target="_blank">琅嬛福地</a>
+          <div class="desc">似乎是缙云一个书屋的在线网站，罗列了已收藏书籍，能看出主人很朴素，也喜欢中医药文化</div>
+        </div>
+
+        <div class="card">
+          <a href="https://www.cnki.net" target="_blank">中国知网</a>
+          <div class="desc">不必多说</div>
+        </div>
+
+        <div class="card">
+          <a href="https://library.gzucm.edu.cn" target="_blank">广州中医药大学图书馆</a>
+          <div class="desc">记得打开EasyConnect</div>
+        </div>
+
+      </div>
+
+      <div class="section">
+        <h2>🎞️ 视频</h2>
+
+        <div class="card">
+          <a>日语</a>
+
+          <div class="card-grid">
+            <div class="card">
+
+              <div class="card-thumb">
+                <img src="icons/Jp1.avif">
+              </div>
+
+              <a href="https://www.bilibili.com/video/BV19741117rG?spm_id_from=333.1387.favlist.content.click"
+                target="_blank">【新标日第2版】初级同步练习 听力（上）CD录音&原文 </a>
+            </div>
+
+            <div class="card">
+
+              <div class="card-thumb">
+                <img src="icons/Jp2.avif">
+              </div>
+
+              <a href="https://www.bilibili.com/video/BV1Bp4y1D747?spm_id_from=333.1387.favlist.content.click"
+                target="_blank">日语学习：新标日课程0到N1，B站史上最好学的日语入门视频教程零基础学习日语轻松简单学 </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <a>粤语</a>
+          <div class="card-grid">
+            <div class="card">
+
+              <div class="card-thumb">
+                <img src="icons/Ca1.avif">
+              </div>
+
+              <a href="https://www.bilibili.com/video/BV12b411L7NS/?spm_id_from=333.337.search-card.all.click"
+                target="_blank">超级棒的粤语教程（bilibili） </a>
+            </div>
+
+            <div class="card">
+
+              <div class="card-thumb">
+                <img src="icons/Ca1.avif">
+              </div>
+
+              <a href="https://www.youtube.com/watch?v=eW5KRKGIGaY&list=PLF9R18laHAEVZuSmmOSkcUbyvWEnBYEF2&pp=0gcJCbUEOCosWNin"
+                target="_blank">最系统性学粤语（广东话）（YouTube）</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>📌 工具</h2>
+
+        <div class="card-grid">
+          <div class="card tool">
+            <a href="https://www.xmind.net/" target="_blank">
+              <img
+                src="https://images-eds-ssl.xboxlive.com/image?url=4rt9.lXDC4H_93laV1_eHM0OYfiFeMI2p9MWie0CvL99U4GA1gf6_kayTt_kBblFwHwo8BW8JXlqfnYxKPmmBdzzy3x1GFwntnu8l6sItIF9JvFHoObF8d40IQ0qlIgrLI4RqBNh.6U81yhnoauz4nR9vgYWp09N7DhPXPsP.7I-&format=source&h=170">
+              <span>XMind</span>
+            </a>
+            <div class="desc">思维导图</div>
+          </div>
+
+          <div class="card tool">
+            <a href="https://chat.openai.com/" target="_blank">
+              <img src="icons/chatgpt.ico">
+              <span>ChatGPT</span>
+            </a>
+            <div class="desc">众所周知</div>
+          </div>
+
+          <div class="card tool">
+            <a href="https://notebooklm.google.com/" target="_blank">
+              <img src="icons/lm.png">
+              <span>NotebookLM</span>
+            </a>
+            <div class="desc">Google旗下AI笔记</div>
+          </div>
+
+          <div class="card tool">
+            <a href="https://www.deepl.com/translator" target="_blank">
+              <img src="icons/deepl.png">
+              <span>DeepL</span>
+            </a>
+            <div class="desc">强力翻译软件です～～</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🎮 休闲</h2>
+        <div class="card-grid">
+          <div class="card">
+            <a href="https://vue.misaka-fans.space/eat-mikoto/" target="_blank">eat-mikoto</a>
+            <div class="desc">钢琴块儿还是那么好玩儿（超电磁炮永世长存！！！）</div>
+          </div>
+
+          <div class="card">
+            <a href="chrome://dino/" target="_blank">chrome dinosaur</a>
+            <div class="desc">小恐龙！！！有没有刷到2000分呢~</div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="site-footer">
+        <div>Generated By ChatGPT</div>
+        <div>Assisted By Gemini</div>
+      </footer>
+
+      <script>
+        (function () {
+          const key = "theme";
+          const root = document.documentElement;
+          const btn = document.getElementById("themeToggle");
+
+          function setTheme(theme) {
+            if (theme === "dark") root.setAttribute("data-theme", "dark");
+            else root.removeAttribute("data-theme");
+
+            // 更新按钮文案
+            const isDark = root.getAttribute("data-theme") === "dark";
+            if (btn) btn.textContent = isDark ? "☀️ 浅色" : "🌙 暗色";
+          }
+
+          // 1) 优先读本地保存
+          const saved = localStorage.getItem(key);
+
+          // 2) 没保存就跟随系统
+          const preferDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+          setTheme(saved || (preferDark ? "dark" : "light"));
+
+          if (btn) {
+            btn.addEventListener("click", () => {
+              const isDark = root.getAttribute("data-theme") === "dark";
+              const next = isDark ? "light" : "dark";
+              localStorage.setItem(key, next);
+              setTheme(next);
+            });
+          }
+        })();
+      </script>
+
+</body>
+
+</html>
