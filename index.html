@@ -672,8 +672,13 @@
       throw new Error("没有获取到音频轨道。你大概率没勾选“共享音频”。");
     }
 
-    const audioOnlyStream = new MediaStream(audioTracks);
-    audioOnlyStream.__displayStream = displayStream;
+    // 只把克隆后的音频轨道交给网页
+    const safeAudioTracks = audioTracks.map(track => track.clone());
+    const audioOnlyStream = new MediaStream(safeAudioTracks);
+
+    // 立刻停止原始视频轨道
+    displayStream.getVideoTracks().forEach(track => track.stop());
+
     return audioOnlyStream;
   }
 
@@ -693,7 +698,7 @@
     if (wantsAudio && !wantsVideo) {
       try {
         const stream = await getSharedAudioStream();
-        log("using shared tab/system audio");
+        log("using audio-only stream");
         return stream;
       } catch (err) {
         console.warn(TAG, "共享音频失败，回退原始 getUserMedia：", err);
